@@ -7,6 +7,8 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import Navbar from '@/components/Navbar';
 import { Camera, Save, Star, Package, Upload } from 'lucide-react';
+import DefaultAvatar from '@/components/DefaultAvatar';
+
 
 const Profile = () => {
   const [profile, setProfile] = useState({
