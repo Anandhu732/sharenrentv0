@@ -9,9 +9,12 @@ const Footer: FC = () => {
         {/* Logo & Tagline */}
         <div>
           <div className="flex items-center space-x-2 mb-2">
-            <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center text-white font-bold text-sm">
-              S
-            </div>
+            <img
+                  src="/favicon.ico"
+                  alt="Logo"
+                 className="w-8 h-8 rounded-lg"
+            />
+
             <span className="text-xl font-semibold">ShareNRent</span>
           </div>
           <p className="text-sm text-gray-400">

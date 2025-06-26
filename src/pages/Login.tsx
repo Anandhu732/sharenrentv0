@@ -82,9 +82,11 @@ const Login = () => {
         <Card className="shadow-2xl">
           <CardHeader className="text-center">
             <Link to="/" className="flex items-center justify-center space-x-2 mb-4">
-              <div className="w-8 h-8 bg-gradient-to-r from-emerald-500 to-blue-500 rounded-lg flex items-center justify-center">
-                <span className="text-white font-bold text-sm">S</span>
-              </div>
+              <img
+                src="/favicon.ico"
+                alt="Logo"
+                className="w-8 h-8 rounded-lg"
+              />
               <span className="text-xl font-bold text-gray-900">ShareNRent</span>
             </Link>
             <CardTitle className="text-2xl">Welcome Back</CardTitle>
