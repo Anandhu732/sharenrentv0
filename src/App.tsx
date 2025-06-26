@@ -7,7 +7,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { AuthProvider } from "./contexts/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 import AdminLayout from "./components/AdminLayout";
+import MainLayout from "./components/MainLayout";
 import LandingPage from "./pages/LandingPage";
+import Login from "./pages/Login";
+import Signup from "./pages/Signup";
 import Dashboard from "./pages/Dashboard";
 import Profile from "./pages/Profile";
 import Settings from "./pages/Settings";
@@ -28,28 +31,49 @@ const App = () => (
         <Sonner />
         <BrowserRouter>
           <Routes>
-            <Route path="/" element={<LandingPage />} />
+            
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+           <Route
+                path="/"
+                element={<MainLayout><LandingPage /></MainLayout>}
+              />
+
             <Route path="/dashboard" element={
               <ProtectedRoute>
-                <Dashboard />
+             <MainLayout><Dashboard /></MainLayout>
               </ProtectedRoute>
             } />
-            <Route path="/profile" element={
-              <ProtectedRoute>
-                <Profile />
-              </ProtectedRoute>
-            } />
-            <Route path="/settings" element={
-              <ProtectedRoute>
-                <Settings />
-              </ProtectedRoute>
-            } />
-            <Route path="/cart" element={
-              <ProtectedRoute>
-                <Cart />
-              </ProtectedRoute>
-            } />
-            
+           <Route
+                path="/profile"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout><Profile /></MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/settings"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout><Settings /></MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="/cart"
+                element={
+                  <ProtectedRoute>
+                    <MainLayout><Cart /></MainLayout>
+                  </ProtectedRoute>
+                }
+              />
+              <Route
+                path="*"
+                element={<MainLayout><NotFound /></MainLayout>}
+              />
+
+
             {/* Admin Routes */}
             <Route path="/admin" element={
               <ProtectedRoute>
@@ -64,7 +88,7 @@ const App = () => (
               <Route path="users" element={<AdminUsers />} />
               <Route path="settings" element={<Settings />} />
             </Route>
-            
+
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>

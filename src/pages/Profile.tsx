@@ -6,7 +6,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import Navbar from '@/components/Navbar';
-import { Camera, Save, Star, Package } from 'lucide-react';
+import { Camera, Save, Star, Package, Upload } from 'lucide-react';
 
 const Profile = () => {
   const [profile, setProfile] = useState({
@@ -15,7 +15,7 @@ const Profile = () => {
     phone: "+1 (555) 123-4567",
     address: "123 Main St, City, State 12345",
     bio: "Passionate about sharing economy and sustainable living. Love renting out my photography equipment and outdoor gear!",
-    avatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face"
+    avatar: "" // Empty string means use default avatar
   });
 
   const [isEditing, setIsEditing] = useState(false);
@@ -30,6 +30,16 @@ const Profile = () => {
     setProfile(prev => ({ ...prev, [field]: value }));
   };
 
+  const handleAvatarUpload = () => {
+    // Simulate file upload - in real app, this would handle actual file upload
+    console.log('Avatar upload clicked');
+    // For now, just toggle between default and a sample image
+    setProfile(prev => ({
+      ...prev,
+      avatar: prev.avatar ? '' : 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=200&h=200&fit=crop&crop=face'
+    }));
+  };
+
   const activityData = [
     { type: "Listed", item: "Canon EOS R5", date: "2 days ago", status: "Active" },
     { type: "Rented", item: "Mountain Bike", date: "1 week ago", status: "Completed" },
@@ -39,7 +49,7 @@ const Profile = () => {
   return (
     <div className="min-h-screen bg-gray-50">
       <Navbar />
-      
+
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900">Profile Settings</h1>
@@ -70,17 +80,22 @@ const Profile = () => {
               {/* Avatar Section */}
               <div className="flex items-center space-x-6 mb-8">
                 <div className="relative">
-                  <img
-                    src={profile.avatar}
-                    alt="Profile"
-                    className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
-                  />
+                  {profile.avatar ? (
+                    <img
+                      src={profile.avatar}
+                      alt="Profile"
+                      className="w-24 h-24 rounded-full object-cover border-4 border-white shadow-lg"
+                    />
+                  ) : (
+                    <DefaultAvatar name={profile.name} size="xl" />
+                  )}
                   {isEditing && (
                     <Button
                       size="icon"
                       className="absolute -bottom-2 -right-2 w-8 h-8 rounded-full bg-emerald-500 hover:bg-emerald-600"
+                      onClick={handleAvatarUpload}
                     >
-                      <Camera className="w-4 h-4" />
+                      <Upload className="w-4 h-4" />
                     </Button>
                   )}
                 </div>
@@ -106,7 +121,7 @@ const Profile = () => {
                     className="mt-1"
                   />
                 </div>
-                
+
                 <div>
                   <Label htmlFor="email">Email</Label>
                   <Input
@@ -118,7 +133,7 @@ const Profile = () => {
                     className="mt-1"
                   />
                 </div>
-                
+
                 <div>
                   <Label htmlFor="phone">Phone</Label>
                   <Input
@@ -129,7 +144,7 @@ const Profile = () => {
                     className="mt-1"
                   />
                 </div>
-                
+
                 <div>
                   <Label htmlFor="address">Address</Label>
                   <Input

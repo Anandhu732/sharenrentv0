@@ -1,15 +1,16 @@
 
 import { useState } from 'react';
-import { Link, useLocation, Outlet } from 'react-router-dom';
+import { Link, useLocation, Outlet, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/ui/button';
-import { 
-  LayoutDashboard, 
-  User, 
-  ShoppingCart, 
-  Package, 
-  Users, 
-  Settings, 
+
+import {
+  LayoutDashboard,
+  User,
+  ShoppingCart,
+  Package,
+  Users,
+  Settings,
   LogOut,
   Menu,
   X
@@ -19,6 +20,12 @@ const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { user, logout } = useAuth();
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate('/');
+  };
 
   const menuItems = [
     { name: 'Dashboard', href: '/admin', icon: LayoutDashboard },
@@ -75,11 +82,17 @@ const AdminLayout = () => {
 
         <div className="absolute bottom-4 left-0 right-0 px-4">
           <div className="flex items-center space-x-3 p-3 rounded-lg bg-gray-50">
-            <img
-              src={user?.avatar}
-              alt={user?.name}
-              className="w-8 h-8 rounded-full"
-            />
+            {user?.avatar ? (
+              <img
+                src={user.avatar}
+                alt={user.name}
+                className="w-8 h-8 rounded-full"
+              />
+            ) : (
+              <div className="w-8 h-8 rounded-full bg-gray-300 flex items-center justify-center text-gray-500">
+                <User className="w-5 h-5" />
+              </div>
+            )}
             {sidebarOpen && (
               <div className="flex-1 min-w-0">
                 <p className="text-sm font-medium text-gray-900 truncate">{user?.name}</p>
@@ -89,7 +102,7 @@ const AdminLayout = () => {
           </div>
           <Button
             variant="ghost"
-            onClick={logout}
+            onClick={handleLogout}
             className={`w-full mt-2 justify-start text-red-600 hover:text-red-700 hover:bg-red-50 ${
               !sidebarOpen ? 'px-2' : ''
             }`}
